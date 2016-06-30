@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         self.data = ["Allen", "Bennett", "Chloe", "Daniel" , "Evan", "Farah" , "George" , "Heidi", "Ian", "Jon", "Katherine", "Louis" , "Margaret", "Nathan" , "Ozzie", "Peter" , "Quinton", "Rachel", "Stephen" , "Travis", "Ursula", "Vick" , "William", "Xultan", "Zorro" ]
         
         searchBar.delegate = self
-        tableView.delegate = self ; searchBar.delegate = self 
+        tableView.delegate = self ; searchBar.delegate = self
 
     }
 
@@ -41,3 +41,54 @@ class ViewController: UIViewController {
 
 }
 
+class NameCell : UITableViewCell  {
+    
+    typealias Name = String
+    
+    let name:Name
+    
+    init(name: Name) {
+        self.name = name
+        
+        super.init(style: .Default, reuseIdentifier: "cell")
+        textLabel?.text = name
+        textLabel?.font = UIFont.boldSystemFontOfSize(20)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+extension ViewController : UISearchBarDelegate {
+    
+}
+
+extension ViewController : UITableViewDelegate {
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+}
+
+extension ViewController : UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = NameCell(name: filteredData[indexPath.row])
+        
+        return cell
+        
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return filteredData.count
+    }
+    
+}
