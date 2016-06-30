@@ -30,6 +30,10 @@ class ViewController: UIViewController {
         
         searchBar.delegate = self
         tableView.delegate = self ; searchBar.delegate = self
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchView.dismissSearchBar))
+        gestureRecognizer.delegate = self
+        tableView.addGestureRecognizer(gestureRecognizer)
 
     }
 
@@ -114,7 +118,7 @@ extension ViewController : UITableViewDelegate {
         for name in data {
             
             if name.containsString(searchText) {
-                filteredData.append(name) 
+                filteredData.append(name)
                 
             }
             
@@ -137,6 +141,29 @@ extension ViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return filteredData.count
+    }
+    
+}
+
+extension ViewController : UIGestureRecognizerDelegate {
+    
+    
+    func dismissSearchBar() { searchBar.resignFirstResponder()
+        
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        
+        guard let view = touch.view else { return true }
+        
+        if view.isDescendantOfView(tableView) && touch.view != tableView { return false }
+        else { return true }
+        
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
     }
     
 }
