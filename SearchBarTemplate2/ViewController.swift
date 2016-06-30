@@ -124,7 +124,6 @@ extension ViewController : UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        
     }
     
 }
