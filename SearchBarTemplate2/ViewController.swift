@@ -10,9 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    typealias Data = String
+    typealias Name = String
+    typealias SearchText = String
     
-    var data:[Data!]
+    var data:[Name]!
+    
+    var searchDelayer: NSTimer?
+    var searchText:SearchText?
+    
+    var filteredData:[Name]!
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -22,7 +28,8 @@ class ViewController: UIViewController {
         
         self.data = ["Allen", "Bennett", "Chloe", "Daniel" , "Evan", "Farah" , "George" , "Heidi", "Ian", "Jon", "Katherine", "Louis" , "Margaret", "Nathan" , "Ozzie", "Peter" , "Quinton", "Rachel", "Stephen" , "Travis", "Ursula", "Vick" , "William", "Xultan", "Zorro" ]
         
-        
+        searchBar.delegate = self
+        tableView.delegate = self ; searchBar.delegate = self 
 
     }
 
