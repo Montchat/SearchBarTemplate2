@@ -102,13 +102,17 @@ extension ViewController : UISearchBarDelegate {
         
         if searchText == "" { return } // so that it doesnt show all of our users. v important.
         
-
         for name in data {
             
             //this part needs to be improved. for search to happen, we need to create a Regex system where the strings that are typed through the SearchBar are checked in the data
-            filteredData.append(name)
+            if name.containsString(searchText) {
+                
+                filteredData.append(name)
+            }
         
         }
+        
+        tableView.reloadData()
     
     }
     
