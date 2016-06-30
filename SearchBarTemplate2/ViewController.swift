@@ -28,8 +28,10 @@ class ViewController: UIViewController {
         
         self.data = ["Allen", "Bennett", "Chloe", "Daniel" , "Evan", "Farah" , "George" , "Heidi", "Ian", "Jon", "Katherine", "Louis" , "Margaret", "Nathan" , "Ozzie", "Peter" , "Quinton", "Rachel", "Stephen" , "Travis", "Ursula", "Vick" , "William", "Xultan", "Zorro" ]
         
+        filteredData = [ ]
+        
         searchBar.delegate = self
-        tableView.delegate = self ; searchBar.delegate = self
+        tableView.delegate = self ; tableView.dataSource = self
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissSearchBar))
         gestureRecognizer.delegate = self
@@ -37,21 +39,16 @@ class ViewController: UIViewController {
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
 class NameCell : UITableViewCell  {
     
     typealias Name = String
     
-    let name:Name
+    let name:Name!
     
     init(name: Name) {
+        
         self.name = name
         
         super.init(style: .Default, reuseIdentifier: "cell")
@@ -88,16 +85,6 @@ extension ViewController : UISearchBarDelegate {
     
     }
     
-}
-
-extension ViewController : UITableViewDelegate {
-    
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-    }
-    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.filteredData = []
@@ -115,16 +102,24 @@ extension ViewController : UITableViewDelegate {
         
         if searchText == "" { return } // so that it doesnt show all of our users. v important.
         
-        
-        //this part needs to be improved. for search to happen, we need to create a Regex system where the strings that are typed through the SearchBar are checked in the data 
-        
+
         for name in data {
-            if name.containsString(searchText) {
-                filteredData.append(name)
-                
-            }
             
+            //this part needs to be improved. for search to happen, we need to create a Regex system where the strings that are typed through the SearchBar are checked in the data
+            filteredData.append(name)
+        
         }
+    
+    }
+    
+
+}
+
+extension ViewController : UITableViewDelegate {
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         
     }
     
@@ -157,7 +152,6 @@ extension ViewController : UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         
         guard let view = touch.view else { return true }
-        
         if view.isDescendantOfView(tableView) && touch.view != tableView { return false }
         else { return true }
         
