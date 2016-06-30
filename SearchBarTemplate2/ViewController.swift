@@ -65,12 +65,53 @@ class NameCell : UITableViewCell  {
 
 extension ViewController : UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    
+    }
+    
 }
 
 extension ViewController : UITableViewDelegate {
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.filteredData = []
+        tableView.reloadData()
+        
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(ViewController.queryForUsersWithSearchText), object: nil)
+        performSelector(#selector(ViewController.queryForUsersWithSearchText), withObject: nil, afterDelay: 0.5)
+        self.searchText = searchText
+        
+    }
+    
+    func queryForUsersWithSearchText() {
+        
+        guard let searchText = self.searchText else { return }
+        
+        if searchText == "" || searchText.characters.count < 3 { return } // so that it doesnt show all of our users. v important.
+        
+        
         
     }
     
