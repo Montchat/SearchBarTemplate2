@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         searchBar.delegate = self
         tableView.delegate = self ; searchBar.delegate = self
         
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchView.dismissSearchBar))
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissSearchBar))
         gestureRecognizer.delegate = self
         tableView.addGestureRecognizer(gestureRecognizer)
 
