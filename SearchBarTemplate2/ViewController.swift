@@ -99,19 +99,26 @@ extension ViewController : UITableViewDelegate {
         self.filteredData = []
         tableView.reloadData()
         
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(ViewController.queryForUsersWithSearchText), object: nil)
-        performSelector(#selector(ViewController.queryForUsersWithSearchText), withObject: nil, afterDelay: 0.5)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(ViewController.queryForNamesWithSearchText), object: nil)
+        performSelector(#selector(ViewController.queryForNamesWithSearchText), withObject: nil, afterDelay: 0.5)
         self.searchText = searchText
         
     }
     
-    func queryForUsersWithSearchText() {
+    func queryForNamesWithSearchText() {
         
         guard let searchText = self.searchText else { return }
         
-        if searchText == "" || searchText.characters.count < 3 { return } // so that it doesnt show all of our users. v important.
+        if searchText == "" { return } // so that it doesnt show all of our users. v important.
         
-        
+        for name in data {
+            
+            if name.containsString(searchText) {
+                filteredData.append(name) 
+                
+            }
+            
+        }
         
     }
     
