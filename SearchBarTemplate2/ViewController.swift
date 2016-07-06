@@ -105,9 +105,9 @@ extension ViewController : UISearchBarDelegate {
         for name in data {
             
             //this part needs to be improved. for search to happen, we need to create a Regex system where the strings that are typed through the SearchBar are checked in the data
-            if name.containsString(searchText) {
-                
+            if (name.lowercaseString.rangeOfString(searchText)) != nil {
                 filteredData.append(name)
+                
             }
         
         }
